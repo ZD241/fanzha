@@ -34,7 +34,10 @@
     }
 
     #test1 {
-        overflow: hidden;
+        overflow: hidden; /* 隐藏超出部分 */
+        width: 80%; /* 固定轮播图窗口宽度，可根据需求调整 */
+        margin: 0 auto; /* 让轮播图水平居中 */
+        background-color: rgba(200, 200, 200, 0.2); /* 设置透明浅灰色背景 */
     }
 
     #test1 .layui-carousel-ind li {
@@ -433,6 +436,9 @@
         -o-transition-timing-function: linear;
         transition-timing-function: linear;
     }
+
+
+
 </style>
 <body>
 <div id="app">

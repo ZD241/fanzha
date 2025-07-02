@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dao.ChatRecordDao">
+    <insert id="insertChatRecord" parameterType="com.entity.ChatRecord">
+        INSERT INTO chat_record (user_id, conversation_title, conversation_start_time, sender_type, message_content, send_time)
+        VALUES (#{userId}, #{conversationTitle}, #{conversationStartTime}, #{senderType}, #{messageContent}, #{sendTime})
+    </insert>
+
+    <select id="selectMessagesByConversationTitle" parameterType="java.util.Map" resultType="com.entity.ChatRecord">
+        SELECT * FROM chat_record
+        WHERE conversation_title = #{conversationTitle}
+            LIMIT #{offset}, #{limit}
+    </select>
+</mapper>
