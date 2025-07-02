@@ -13,6 +13,11 @@ spring:
         username: root
         password: 123qwe123qwe
 
+  # 新增DeepSeek配置项
+deepseek:
+  api:
+    key: sk-2e9bd0d488b74c7b9763bb8234873a86
+    url: https://api.deepseek.com/chat/completions
 
     servlet:
       multipart:
@@ -51,3 +56,4 @@ mybatis-plus:
 logging:
   level:
     com.dao: debug
+

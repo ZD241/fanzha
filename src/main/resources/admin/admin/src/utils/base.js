@@ -9,7 +9,7 @@ const base = {
     },
     getProjectName(){
         return {
-            projectName: "反欺诈平台"
+            projectName: "防诈小卫士后台"
         } 
     }
 }

@@ -1,4 +1,641 @@
+
+/* 仅添加Markdown内容样式 */
+.chat-message.bot pre {
+    background: #f8f8f8;
+    padding: 10px;
+    border-radius: 4px;
+    overflow-x: auto;
+    margin: 10px 0;
+}
+
+.chat-message.bot code {
+    font-family: Monaco, Consolas, monospace;
+    font-size: 14px;
+}
+
+.chat-message.bot ul,
+.chat-message.bot ol {
+    margin: 10px 0;
+    padding-left: 25px;
+}
+
+.chat-message.bot li {
+    margin: 5px 0;
+}
+
+.chat-message.bot blockquote {
+    border-left: 3px solid #ddd;
+    margin: 10px 0;
+    padding-left: 10px;
+    color: #666;
+}
+
+/* 新增/修改的样式 */
+.chat-input {
+    padding: 15px;
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+}
+
+/* .layui-input-block {
+    margin-bottom: 15px;
+    display:flex;
+} */
+
+#question.layui-textarea {
+    min-height: 100px;
+    max-height: 200px;
+    padding: 12px 15px;
+    line-height: 1.6;
+    border: 2px solid #e6e6e6;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+    font-size: 15px;
+    color: #333;
+}
+
+#question.layui-textarea:focus {
+    border-color: #5B8FF9;
+    box-shadow: 0 0 8px rgba(91, 143, 249, 0.2);
+}
+
+#submit-question.layui-btn {
+    height: 48px;
+    border-radius: 8px;
+    font-size: 16px;
+    letter-spacing: 1px;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    background-color: #5B8FF9;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#submit-question.layui-btn:hover {
+    background-color: #4475E0;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(91, 143, 249, 0.3);
+}
+
+#submit-question.layui-btn .layui-icon {
+    margin-right: 8px;
+    font-size: 18px;
+    transition: transform 0.2s ease;
+}
+
+#submit-question.layui-btn:hover .layui-icon {
+    transform: translateX(2px);
+}
+
+/* ======= 输入区域样式 ======= */
+/* 主题色定义 */
+:root {
+    --primary-color: #5B8FF9;
+    --hover-color: #4072D8;
+    --active-color: #2E59B3;
+    --gradient-start: #6C8AFF;
+    --gradient-end: #5B8FF9;
+}
+
+
+
+
+
+
+
+
+
+
+/* 输入区域容器 */
+.chat-input {
+    display: flex;
+    gap: 12px;
+    padding: 16px;
+    background: linear-gradient(145deg, #ffffff, #f8faff);
+    border-radius: 12px;
+    box-shadow:
+            0 4px 6px rgba(0, 0, 0, 0.05),
+            0 1px 3px rgba(0, 0, 0, 0.1);
+    transition: box-shadow 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    
+}
+
+
+
+
+
+
+
+
+
+
+.chat-input:hover {
+    box-shadow:
+            0 6px 12px rgba(91, 143, 249, 0.15),
+            0 2px 6px rgba(91, 143, 249, 0.1);
+}
+
+/* 输入框高级效果 */
+#question.layui-textarea {
+    height: 48px;
+    min-height: 48px;
+    max-height: 120px;
+    padding: 14px 20px;
+    border: 2px solid #e0e7ff;
+    border-radius: 10px;
+    background: rgba(255, 255, 255, 0.9);
+    backdrop-filter: blur(4px);
+    transition: all 0.3s ease;
+    font-size: 15px;
+    line-height: 1.6;
+    color: #2d3748;
+}
+
+#question.layui-textarea:focus {
+    border-color: var(--primary-color);
+    box-shadow:
+            0 0 0 3px rgba(91, 143, 249, 0.2),
+            inset 0 1px 2px rgba(255, 255, 255, 0.25);
+    background: rgba(255, 255, 255, 1);
+}
+
+/* 发送按钮高级效果 */
+#submit-question.layui-btn {
+    height: 48px;
+    width: 110px;
+    border: none;
+    border-radius: 10px;
+    background: linear-gradient(
+            135deg,
+            var(--gradient-start),
+            var(--gradient-end)
+    );
+    color: white;
+    font-size: 16px;
+    font-weight: 500;
+    letter-spacing: 0.5px;
+    transition:
+            transform 0.2s ease,
+            box-shadow 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+            background 0.3s ease;
+    overflow: hidden;
+    position: relative;
+}
+
+/* 按钮悬停光效 */
+#submit-question.layui-btn::after {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: linear-gradient(
+            45deg,
+            transparent,
+            rgba(255, 255, 255, 0.15),
+            transparent
+    );
+    transform: rotate(30deg);
+    transition: all 0.6s ease;
+}
+
+#submit-question.layui-btn:hover {
+    transform: translateY(-1px);
+    box-shadow:
+            0 6px 16px rgba(91, 143, 249, 0.25),
+            0 2px 6px rgba(91, 143, 249, 0.15);
+}
+
+#submit-question.layui-btn:hover::after {
+    left: 150%;
+}
+
+/* 按钮点击动效 */
+#submit-question.layui-btn:active {
+    transform: translateY(1px) scale(0.98);
+    background: linear-gradient(
+            135deg,
+            var(--hover-color),
+            var(--active-color)
+    );
+}
+
+/* 按钮图标动画 */
+#submit-question.layui-btn .layui-icon {
+    margin-right: 8px;
+    transition: transform 0.3s ease;
+}
+
+#submit-question.layui-btn:hover .layui-icon {
+    transform: rotate(30deg) scale(1.1);
+}
+
+/* 输入框内容自适应 */
+#question.layui-textarea {
+    transition:
+            height 0.2s ease-out,
+            box-shadow 0.3s ease;
+}
+
+/* 加载状态 */
+.loading .layui-icon {
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+/* 调整输入框容器 */
+.layui-input-block {
+    flex: 1;
+    margin: 0;
+}
+
+/* 输入框样式 */
+#question.layui-textarea {
+    height: 48px;
+    min-height: 48px;
+    max-height: 120px;
+    padding: 12px 15px;
+    border: 2px solid #e6e6e6;
+    border-radius: 8px;
+    line-height: 1.5;
+    resize: none;
+    transition: all 0.3s ease;
+}
+
+/* 聚焦状态 */
+#question.layui-textarea:focus {
+    border-color: #5B8FF9;
+    box-shadow: 0 0 8px rgba(91, 143, 249, 0.2);
+}
+
+/* 发送按钮 */
+#submit-question.layui-btn {
+    height: 48px;
+    width: 100px;
+    border-radius: 8px;
+    font-size: 16px;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-left: auto; /* 靠右对齐 */
+}
+
+#submit-question.layui-btn .layui-icon {
+    margin-right: 6px;
+    font-size: 18px;
+}
+
+/* 悬停效果 */
+#submit-question.layui-btn:hover {
+    background-color: #4475E0;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(91, 143, 249, 0.3);
+}
+
 /* 隐藏 tabbar */
-#tabbar {
-    display: none !important;
+/* 聊天窗口样式 */
+
+.chat-container {
+    max-width: 100%;
+    margin: 20px auto;
+    padding: 20px;
+    /*border: 1px solid #bcc9dc;*/
+    border-radius: 10px;
+    background-image: linear-gradient(#dde9ec, #98b5c6, #87a2c6);
+    height: 800px;
+    display: flex;
+    flex-direction: row;
+    /*height: 100%;*/
+    /*z-index: 999;*/
+}
+.chat-sidebar{
+    position: relative;
+    width: 200px;
+    max-height:650px;
+    background-color:whitesmoke;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 2px 5px rgb(211, 211, 211);
+    margin: 20px;
+}
+.chat-title{
+    width: 200px;
+    height: 45px;
+    background-color: #cde8f4;
+    border-radius: 5px;
+    font-size: 30px;
+    color: #66a0e3;
+    box-shadow: 0 2px 5px rgb(211, 211, 211);
+    text-align: center;
+    padding: 15px;
+}
+
+.new-chat{
+    width: 195px;
+    height:50px;
+    margin-top: 20px;
+    margin-right: 10px;
+    font-size: 20px;
+    border-color: #1b6fec;
+    border-width:4px ;
+    border-radius: 5px;
+    position: relative;
+}
+/* 新增历史记录样式 */
+.history-list {
+    flex: 1;
+    margin-top: 20px;
+    overflow-y: auto;
+    overflow-x: hidden;
+    max-height: 410px;
+    /* 自定义滚动条样式 */
+    scrollbar-width: thin;
+    scrollbar-color: #888 #f1f1f1;
+}
+
+.history-list::-webkit-scrollbar {
+    width: 6px;
+}
+
+.history-list::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 3px;
+}
+
+.history-list::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 3px;
+}
+
+.history-list::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
+
+
+.history-item {
+    padding: 12px;
+    margin: 8px 0;
+    background: white;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.2s;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+}
+
+.history-item:hover {
+    background: #f0f7ff;
+    transform: translateX(5px);
+}
+
+.history-item.active {
+    background: #e3f2fd;
+    border-left: 4px solid #3b9afb;
+}
+
+.history-title {
+    flex: 1;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-size: 14px;
+}
+
+.history-time {
+    font-size: 12px;
+    color: #666;
+    margin-left: 8px;
+}
+.person {
+    /*display: flex;*/
+    position: absolute;
+    margin-bottom: 5px;
+    left: 50%;
+    bottom: 3%;
+    transform: translateX(-50%);
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    overflow: hidden;
+    border: 5px solid #fff;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.3);
+    padding-bottom: 5px;
+}
+.person-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* 保持图片比例 */
+}
+
+
+.chat-main {
+    flex: 1;
+    /*border: 1px solid #87a2c6;*/
+    border-radius: 10px;
+    background-image: linear-gradient(#dde9ec, #98b5c6, #87a2c6);
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    height: 90%;
+}
+
+.chat-messages {
+    height: calc(90% - 60px); /* 留出输入框空间 */
+    overflow-y: auto;
+    margin-bottom: 20px;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    background-color: #fff;
+    box-shadow: 0 2px 5px rgb(211, 211, 211);
+}
+.chat-message {
+    margin-bottom: 10px;
+    padding: 10px;
+    border-radius: 5px;
+    font-size: 15px;
+}
+.chat-message.user {
+    background-color: #e3f2fd;
+    text-align: right;
+    max-width: 70%;  /* 新增宽度限制 */
+    margin-left: auto;  /* 实现右对齐 */
+    margin-bottom: 15px;  /* 增加消息间距 */
+    padding: 12px 16px;  /* 增加内边距 */
+    border-radius: 15px 15px 0 15px;  /* 圆角优化 */
+    width: fit-content;    /* 宽度由内容决定 */
+    /*margin-right: auto;    /* 自动分配剩余空间（可选） */
+    padding: 7px 12px;     /* 内边距包裹文字 */
+    border: 1px solid #b6c6ed;
+}
+
+.chat-message.bot {
+    background-color: #f5f5f5;
+    text-align: left;
+    max-width: 70%;  /* 新增宽度限制 */
+    margin-right: auto;  /* 实现左对齐 */
+    margin-bottom: 15px;  /* 增加消息间距 */
+    padding: 12px 16px;  /* 增加内边距 */
+    border-radius: 15px 15px 15px 0;  /* 圆角优化 */
+    font-size: 15px;
+    width: fit-content;    /* 宽度由内容决定 */
+    /*margin-right: auto;    /* 自动分配剩余空间（可选） */
+    padding: 7px 12px;     /* 内边距包裹文字 */
+    border: 1px solid #e5e8ef;
+}
+
+/* 可选：增加消息气泡箭头效果 */
+.chat-message.user::after {
+    content: '';
+    position: absolute;
+    right: -8px;
+    top: 10px;
+    border: 8px solid transparent;
+    border-left-color: #e3f2fd;
+}
+
+.chat-message.bot::before {
+    content: '';
+    position: absolute;
+    left: -8px;
+    top: 10px;
+    border: 8px solid transparent;
+    border-right-color: #f5f5f5;
+}
+
+.chat-input {
+    display: flex;
+}
+.chat-input textarea {
+    flex: 1;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    border-color: #007bff;
+    resize: none;
+    box-shadow: 0 0 5px rgba(0,123,255,0.3);
+    margin-left: 0; /* 清除左侧外边距 */
+    position: relative;
+    left: -100px; /* 向左移动10像素 */
+    width:500/* 根据右侧按钮宽度计算 */
+}
+.chat-input button {
+    margin-left: 10px;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    background-color: #3b9afb;
+    color: #fff;
+    cursor: pointer;
+    font-size: 20px;
+}
+.chat-input button:hover {
+    background-color: #54a0ff;
+}
+
+
+/* 消息滚动条美化 */
+.chat-messages::-webkit-scrollbar {
+    width: 6px;
+}
+
+.chat-messages::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+
+.chat-messages::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 3px;
+}
+
+
+.chat-messages {
+    overflow-y: auto;
+    scroll-behavior: smooth; /* 平滑滚动 */
+}
+
+/*.chat-message.bot p {
+    white-space: pre-wrap; /* 保留换行符 */
+/*    word-break: break-word; /* 长单词换行 */
+/*}*/
+
+.chat-message.bot p {
+    margin: 4px 0; /* 减小段落上下间距 */
+    line-height: 1.5; /* 控制行高 */
+}
+
+/* 如果Markdown渲染后有多余的换行，可以压缩空白 */
+.chat-message.bot pre,
+.chat-message.bot code {
+    white-space: pre-wrap; /* 允许换行，但不过度保留空格 */
+}
+
+
+
+/* 加载指示器容器 */
+.loading-indicator {
+    display: none;
+    align-items: center;
+    gap: 12px;
+    padding: 15px 20px;
+    background: #fff;
+    border-radius: 20px;
+    margin: 10px;
+    backdrop-filter: blur(4px);
+    animation: fadeIn 0.3s ease;
+    width: fit-content;    /* 宽度由内容决定 */
+    margin-right: auto;    /* 自动分配剩余空间（可选） */
+    padding: 8px 12px;     /* 内边距包裹文字 */
+    /*border: 1px solid #e5e8ef;*/
+    margin-left: -10px; /* 向左推10像素 */
+}
+
+/* 文字部分保持原字体大小 */
+.loading-text {
+    font-size: 14px; /* 保持原有文字大小 */
+    color: #666;
+}
+
+/* 点容器 */
+.dots {
+    display: flex;
+    gap: 8px;
+}
+
+/* 增强颜色变化的点动画 */
+.dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    animation: colorWave 1.4s infinite ease-in-out;
+}
+
+.dot1 { animation-delay: 0s; }
+.dot2 { animation-delay: 0.3s; }
+.dot3 { animation-delay: 0.6s; }
+
+/* 关键帧动画（增强对比度） */
+@keyframes colorWave {
+    0%, 100% {
+        background: #54a0ff; /* 深蓝色 */
+        transform: scale(1);
+    }
+    50% {
+        background: #8fb6ff; /* 浅蓝色 */
+        transform: scale(1.1);
+    }
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(8px); }
+    to { opacity: 1; transform: translateY(0); }
 }

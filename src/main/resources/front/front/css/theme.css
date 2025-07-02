@@ -131,8 +131,8 @@ body {
 	border-radius: 6px;
 	border-width: 2px;
 	border-style: solid;
-	border-color: var(--publicSubColor,#808080);
-	background-color: var(--publicSubColor,#808080);
+	border-color: var(--publicSubColor, #687abf);
+	background-color: var(--publicSubColor, #687abf);
 }
 /*鼠标放上后字体颜色*/
 #header .navs li:hover {
@@ -193,7 +193,10 @@ body {
 	-o-transition: all 0.5s;
 	transition: all 0.5s;
 }
-.team-grids{padding:0;}
+.team-grids{
+	padding:0;
+
+}
 .team-agile-img:hover .view-caption {
 	-moz-transform: translateY(0%) scale(1);
 	-o-transform: translateY(0%) scale(1);
