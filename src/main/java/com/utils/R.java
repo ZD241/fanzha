@@ -1,5 +1,7 @@
 package com.utils;
 
+import org.springframework.http.HttpStatus;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -48,4 +50,8 @@ public class R extends HashMap<String, Object> {
 		super.put(key, value);
 		return this;
 	}
+
+	public HttpStatus getStatusCode() {
+        return null;
+    }
 }

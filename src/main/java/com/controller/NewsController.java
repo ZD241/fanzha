@@ -4,6 +4,8 @@ package com.controller;
 import java.io.File;
 import java.math.BigDecimal;
 import java.net.URL;
+import java.sql.Connection;
+import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import com.alibaba.fastjson.JSONObject;
 import java.util.*;
@@ -14,9 +16,10 @@ import javax.servlet.ServletContext;
 import com.service.TokenService;
 import com.utils.*;
 import java.lang.reflect.InvocationTargetException;
-
-import com.service.DictionaryService;
 import org.apache.commons.lang3.StringUtils;
+import com.service.DictionaryService;
+import javax.sql.DataSource;
+
 import com.annotation.IgnoreAuth;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -39,11 +42,22 @@ import com.alibaba.fastjson.*;
  * @email
 */
 @RestController
-@Controller
 @RequestMapping("/news")
 public class NewsController {
     private static final Logger logger = LoggerFactory.getLogger(NewsController.class);
+    @Autowired
+    private DataSource dataSource;
 
+    // 测试数据库连接的方法
+    @GetMapping("/test-db-connection")
+    public R testDbConnection() {
+        try (Connection connection = dataSource.getConnection()) {
+            return R.ok("数据库连接成功");
+        } catch (SQLException e) {
+            logger.error("数据库连接测试失败", e);
+            return R.error("数据库连接失败: " + e.getMessage());
+        }
+    }
     @Autowired
     private NewsService newsService;
 
@@ -65,6 +79,7 @@ public class NewsController {
     @RequestMapping("/page")
     public R page(@RequestParam Map<String, Object> params, HttpServletRequest request){
         logger.debug("page方法:,,Controller:{},,params:{}",this.getClass().getName(),JSONObject.toJSONString(params));
+
         String role = String.valueOf(request.getSession().getAttribute("role"));
         if(StringUtil.isEmpty(role))
             return R.error(511,"权限为空");
@@ -74,10 +89,17 @@ public class NewsController {
         if(params.get("orderBy")==null || params.get("orderBy")==""){
             params.put("orderBy","id");
         }
-        PageUtils page = newsService.queryPage(params);
 
+        PageUtils page = newsService.queryPage(params);
+        if (page == null) {
+            return R.error(500, "查询分页数据异常，page 为 null");
+        }
         //字典表数据转换
         List<NewsView> list =(List<NewsView>)page.getList();
+        if (dictionaryService == null) {
+            logger.error("dictionaryService 未正确注入，为 null");
+            return R.error(500, "内部服务异常，dictionaryService 未就绪");
+        }
         for(NewsView c:list){
             //修改对应字典表字段
             dictionaryService.dictionaryConvert(c, request);
