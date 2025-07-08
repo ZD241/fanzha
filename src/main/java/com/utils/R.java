@@ -54,4 +54,25 @@ public class R extends HashMap<String, Object> {
 	public HttpStatus getStatusCode() {
         return null;
     }
+   private int code;
+	public int getCode() {
+
+
+		// 其他属性、构造方法等
+
+
+		return code;
+	}
+	public void setCode(int code) {
+		this.code = code;
+	}
+	private String msg;
+	public String getMsg() {
+		// 根据实际存储消息的属性返回，假设是 msg 属性
+		return msg;
+	}
+	public void setMsg(String msg) {
+		this.msg = msg;
+	}
+
 }
