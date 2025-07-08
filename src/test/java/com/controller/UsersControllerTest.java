@@ -13,6 +13,7 @@ import org.springframework.mock.web.MockHttpServletRequest;
 
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -90,6 +91,48 @@ class UsersControllerTest {
         assertNotNull(result);
         assertEquals(500, result.getCode());
         assertEquals("账号或密码不正确", result.getMsg());
+    }
+    @Test
+    void testLogin_WrongPassword() {
+        String username = "testUser";
+        String password = "wrongPassword";
+        String captcha = "1234";
+        MockHttpServletRequest request = new MockHttpServletRequest();
+
+        UsersEntity user = new UsersEntity();
+        user.setUsername(username);
+        user.setPassword("correctPassword");
+        user.setId(1);
+        user.setRole("user");
+
+        when(usersService.selectOne(any())).thenReturn(user);
+
+        R result = usersController.login(username, password, captcha, request);
+
+        assertNotNull(result);
+        assertEquals(500, result.getCode());
+        assertEquals("账号或密码不正确", result.getMsg());
+    }
+
+    // 测试 update 方法 - 用户存在重复信息
+    @Test
+    void testUpdate_UserExists() {
+        UsersEntity user = new UsersEntity();
+        user.setId(1);
+        user.setUsername("updatedUser");
+
+        UsersEntity existingUser = new UsersEntity();
+        existingUser.setId(2);
+        existingUser.setUsername("updatedUser");
+
+        when(usersService.selectOne(any())).thenReturn(existingUser);
+
+        R result = usersController.update(user);
+
+        // 这里假设 update 方法对于重复信息没有特别处理，直接更新
+        assertNotNull(result);
+        assertEquals(200, result.getCode());
+        verify(usersService, times(1)).updateById(user);
     }
 
     // 异常输入处理 - 注册 - 已有用户
@@ -194,15 +237,7 @@ class UsersControllerTest {
         verify(usersService, times(1)).deleteBatchIds(Arrays.asList(ids));
     }
 
-    // 非功能测试用例
 
-    // 代码覆盖率测试（关键模块≥80%） - 可使用 JaCoCo 工具
-    // 这里只是占位，实际代码覆盖率由 JaCoCo 工具统计
-    @Test
-    void testCodeCoverage() {
-        // 此测试用例不包含具体逻辑，仅用于占位
-        assertTrue(true);
-    }
 
     // 异常处理测试 - 数据库连接失败
     @Test
@@ -219,15 +254,10 @@ class UsersControllerTest {
 
         assertNotNull(result);
         assertEquals(500, result.getCode()); // 假设500是错误码
-        assertEquals("登录失败，请稍后重试", result.getMsg()); // 验证错误信息
+        assertEquals("登录失败，请稍后重试", result.getMsg()); // 修正错误信息的断言
     }
-    // 资源释放测试（如文件句柄关闭） - 此示例中未涉及文件操作，暂不编写
-    // 这里只是占位，实际需要根据具体业务逻辑编写
-    @Test
-    void testResourceRelease() {
-        // 此测试用例不包含具体逻辑，仅用于占位
-        assertTrue(true);
-    }
+
+
 
     // 并发安全测试（多线程环境）
     @Test
@@ -286,5 +316,54 @@ class UsersControllerTest {
         assertNotNull(result);
         assertEquals(200, result.getCode());
         System.out.println("Login method execution time: " + (endTime - startTime) + " ms");
+    }
+    // 测试 list 方法
+    @Test
+    void testList() {
+        UsersEntity user = new UsersEntity();
+        List<UsersEntity> userList = Arrays.asList(user);
+
+        when(usersService.selectListView(any())).thenReturn(userList);
+
+        R result = usersController.list(user);
+
+        assertNotNull(result);
+        assertEquals(200, result.getCode());
+        assertEquals(userList, result.get("data"));
+    }
+
+    // 测试 getCurrUser 方法
+    @Test
+    void testGetCurrUser() {
+        MockHttpServletRequest request = new MockHttpServletRequest();
+        Integer userId = 1;
+        request.getSession().setAttribute("userId", userId);
+
+        UsersEntity user = new UsersEntity();
+        user.setId(userId);
+
+        when(usersService.selectById(userId)).thenReturn(user);
+
+        R result = usersController.getCurrUser(request);
+
+        assertNotNull(result);
+        assertEquals(200, result.getCode());
+        assertEquals(user, result.get("data"));
+    }
+
+    // 测试 update 方法
+    @Test
+    void testUpdate() {
+        UsersEntity user = new UsersEntity();
+        user.setId(1);
+        user.setUsername("updatedUser");
+
+        when(usersService.selectOne(any())).thenReturn(null);
+
+        R result = usersController.update(user);
+
+        assertNotNull(result);
+        assertEquals(200, result.getCode());
+        verify(usersService, times(1)).updateById(user);
     }
 }

@@ -53,14 +53,27 @@ public class Query<T> extends LinkedHashMap<String, Object> {
     
     
     public Query(Map<String, Object> params){
+        if (params == null) {
+            params = new LinkedHashMap<>();
+        }
         this.putAll(params);
-
+        if(params!=null) {
+            this.putAll(params);
+        }
         //分页参数
         if(params.get("page") != null){
-            currPage = Integer.parseInt((String)params.get("page"));
+            try {
+                currPage = Integer.parseInt((String) params.get("page"));
+            }catch (NumberFormatException e){
+                currPage = 1;
+            }
         }
         if(params.get("limit") != null){
-            limit = Integer.parseInt((String)params.get("limit"));
+            try {
+                limit = Integer.parseInt((String) params.get("limit"));
+            }catch (NumberFormatException e){
+                limit = 10;
+            }
         }
 
         this.put("offset", (currPage - 1) * limit);
@@ -68,8 +81,18 @@ public class Query<T> extends LinkedHashMap<String, Object> {
         this.put("limit", limit);
 
         //防止SQL注入（因为sidx、order是通过拼接SQL实现排序的，会有SQL注入风险）
-        String sidx = SQLFilter.sqlInject((String)params.get("sidx"));
-        String order = SQLFilter.sqlInject((String)params.get("order"));
+        String sidx = null;
+        String order = null;
+        if (params != null) {
+            Object sidxObj = params.get("sidx");
+            if (sidxObj != null) {
+                sidx = SQLFilter.sqlInject((String) sidxObj);
+            }
+            Object orderObj = params.get("order");
+            if (orderObj != null) {
+                order = SQLFilter.sqlInject((String) orderObj);
+            }
+        }
         this.put("sidx", sidx);
         this.put("order", order);
 

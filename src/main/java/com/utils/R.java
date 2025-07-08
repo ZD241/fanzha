@@ -32,18 +32,25 @@ public class R extends HashMap<String, Object> {
 
 	public static R ok(String msg) {
 		R r = new R();
+		r.put("code", 200);
 		r.put("msg", msg);
 		return r;
 	}
+
 	
 	public static R ok(Map<String, Object> map) {
 		R r = new R();
+		r.put("code", 200);
 		r.putAll(map);
 		return r;
 	}
-	
+
 	public static R ok() {
-		return new R();
+
+			R r = new R();
+			r.put("code", 200);
+			return r;
+
 	}
 
 	public R put(String key, Object value) {
@@ -51,9 +58,6 @@ public class R extends HashMap<String, Object> {
 		return this;
 	}
 
-	public HttpStatus getStatusCode() {
-        return null;
-    }
    private int code;
 	public int getCode() {
 
@@ -61,15 +65,15 @@ public class R extends HashMap<String, Object> {
 		// 其他属性、构造方法等
 
 
-		return code;
+		return (Integer) this.get("code");
 	}
 	public void setCode(int code) {
 		this.code = code;
 	}
 	private String msg;
 	public String getMsg() {
-		// 根据实际存储消息的属性返回，假设是 msg 属性
-		return msg;
+
+		return (String) this.get("msg");
 	}
 	public void setMsg(String msg) {
 		this.msg = msg;

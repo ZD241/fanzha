@@ -44,20 +44,27 @@ import com.alibaba.fastjson.*;
 @RestController
 @RequestMapping("/news")
 public class NewsController {
-    private static final Logger logger = LoggerFactory.getLogger(NewsController.class);
     @Autowired
     private DataSource dataSource;
 
     // 测试数据库连接的方法
     @GetMapping("/test-db-connection")
     public R testDbConnection() {
+        try(Connection connection=dataSource.getConnection()) {
+            return R.ok("数据库连接成功");
+        }catch (SQLException e) {
+            return R.error("数据库连接失败"+e.getMessage());
+        }
+    }
+   /* public R testDbConnection() {
         try (Connection connection = dataSource.getConnection()) {
             return R.ok("数据库连接成功");
         } catch (SQLException e) {
-            logger.error("数据库连接测试失败", e);
             return R.error("数据库连接失败: " + e.getMessage());
         }
-    }
+    }*/
+    private static final Logger logger = LoggerFactory.getLogger(NewsController.class);
+
     @Autowired
     private NewsService newsService;
 

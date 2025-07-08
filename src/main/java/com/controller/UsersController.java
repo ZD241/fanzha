@@ -44,6 +44,7 @@ public class UsersController {
 	@IgnoreAuth
 	@PostMapping(value = "/login")
 	public R login(String username, String password, String captcha, HttpServletRequest request) {
+		try{
 		UsersEntity user = usersService.selectOne(new EntityWrapper<UsersEntity>().eq("username", username));
 		if(user==null || !user.getPassword().equals(password)) {
 			return R.error("账号或密码不正确");
@@ -54,6 +55,9 @@ public class UsersController {
 		r.put("role",user.getRole());
 		r.put("userId",user.getId());
 		return r;
+		} catch (Exception e) {
+			return R.error(500,"登录失败，请稍后重试");
+		}
 	}
 	
 	/**
@@ -87,7 +91,7 @@ public class UsersController {
     public R resetPass(String username, HttpServletRequest request){
     	UsersEntity user = usersService.selectOne(new EntityWrapper<UsersEntity>().eq("username", username));
     	if(user==null) {
-    		return R.error("账号不存在");
+    		return R.error(500,"账号不存在");
     	}
     	user.setPassword("123456");
         usersService.update(user,null);

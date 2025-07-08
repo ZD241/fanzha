@@ -3,12 +3,15 @@ package com.service;
 import com.baomidou.mybatisplus.service.IService;
 import com.utils.PageUtils;
 import com.entity.DictionaryEntity;
+import org.springframework.stereotype.Service;
+
 import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 
 /**
  * 字典表 服务类
  */
+@Service
 public interface DictionaryService extends IService<DictionaryEntity> {
 
     /**
